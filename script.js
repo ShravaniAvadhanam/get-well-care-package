@@ -1,46 +1,60 @@
 const STEPS = [
   {
-    illustration: `<div class="illus soup-illus">
-      <div class="bowl"><div class="steam"></div><div class="steam d"></div><span>🍲</span></div>
+    illustration: `<div class="illus race-start">
+      <span class="big-emoji">🏎️</span>
+      <span class="cats-cheer">🐱🐱</span>
     </div>`,
-    html: `<p class="card-eyebrow">item 1 unlocked</p>
-           <h1 class="card-title">A Get Well Soon<br>Care Package</h1>
-           <p class="card-body">Hey you — someone packed this little care package with love, just for you. Tap below to unwrap each gift, one at a time.</p>`,
-    btn: "unwrap first gift →",
+    html: `<p class="card-eyebrow">🏁 lights out!</p>
+           <h1 class="card-title">Get Well Soon,<br>Racer!</h1>
+           <p class="card-body handwriting">Your pit crew of cats packed this care package — tap <em>next lap</em> to unwrap each gift on your road to recovery.</p>`,
+    btn: "lap 1 — go! →",
+    toast: "🏎️ Vroom! Race started!",
   },
   {
-    illustration: `<div class="illus soup-illus big">
-      <div class="bowl"><div class="steam"></div><div class="steam d"></div><span>🍲</span></div>
+    illustration: `<div class="illus soup-race">
+      <span>🍲</span><span class="pit-cat">🐱</span>
     </div>`,
-    html: `<p class="card-eyebrow">🍲 warm soup</p>
-           <p class="card-body handwriting">Let this soup be a little light on a hard day — creamy, cozy, and made with the kind of love that says <em>get well souper soon.</em></p>`,
-    btn: "keep unwrapping →",
+    html: `<p class="card-eyebrow">🍲 pit stop soup</p>
+           <p class="card-body handwriting">Pit stop #1: a warm bowl of soup for the hard days. The cats insist you eat something cozy — <em>get well souper soon!</em></p>`,
+    btn: "lap 2 →",
+    toast: "🐱 Cat approved soup!",
   },
   {
-    illustration: `<div class="illus flower-illus"><span>🌸</span><span>🌷</span><span>💐</span></div>`,
-    html: `<p class="card-eyebrow">🌸 fresh flowers</p>
-           <p class="card-body handwriting">These are for you — soft petals, bright colours, and a reminder that even slow days still bloom into something beautiful.</p>`,
-    btn: "what's next? →",
+    illustration: `<div class="illus flower-race"><span>🌸</span><span>🏎️</span><span>🌷</span></div>`,
+    html: `<p class="card-eyebrow">🌸 flower power</p>
+           <p class="card-body handwriting">Lap 2 bonus: flowers at the finish line — because even when you're in the pits, you're still blooming.</p>`,
+    btn: "lap 3 →",
+    toast: "🌸 Flower boost unlocked!",
   },
   {
-    illustration: `<div class="illus bee-illus"><span class="bee-float">🐝</span></div>`,
-    html: `<p class="card-eyebrow">🐝 buzzing bee</p>
-           <p class="card-body handwriting">A tiny honeybee, buzzing healing vibes your way — sweet, gentle, and stubbornly hopeful, just like you.</p>`,
-    btn: "almost there →",
+    illustration: `<div class="illus bee-race"><span class="bee-float">🐝</span><span>🐱</span></div>`,
+    html: `<p class="card-eyebrow">🐝 healing buzz</p>
+           <p class="card-body handwriting">A honeybee flew in with the cats — buzzing sweet healing vibes straight to your pit box.</p>`,
+    btn: "lap 4 →",
+    toast: "🐝 Buzz buzz heal!",
   },
   {
-    illustration: `<div class="illus combo-illus"><span>🐱</span><span>🏎️</span><span>🎮</span></div>`,
-    html: `<p class="card-eyebrow">🐾 bonus goodies</p>
-           <p class="card-body handwriting">Plus purr-fect cat cuddles, a pit crew cheering you back on track, and an extra life for when you need a pause — because rest is part of winning.</p>`,
-    btn: "read final note →",
+    illustration: `<div class="illus cat-race">
+      <span class="race-cat bounce">🐱</span>
+      <span>🏎️</span>
+      <span class="race-cat bounce d">😺</span>
+      <span>🎮</span>
+    </div>`,
+    html: `<p class="card-eyebrow">🐾 cat crew + turbo</p>
+           <p class="card-body handwriting">Your cat pit crew is on it — purr-fect cuddles, F1-level support, and an extra life for when you need to pause. Rest is part of winning!</p>`,
+    btn: "final lap →",
+    toast: "🐱 Purr engine activated!",
   },
   {
-    illustration: `<div class="illus heart-illus"><span>💕</span></div>`,
-    html: `<p class="card-eyebrow">delivered with love</p>
+    illustration: `<div class="illus finish">
+      <span>🏁</span><span class="big-heart">💕</span><span>🐱</span>
+    </div>`,
+    html: `<p class="card-eyebrow">🏁 you win!</p>
            <h2 class="card-title small">Get Well Soon</h2>
-           <p class="card-body handwriting final">You're so loved. Rest up, heal gently, and know someone is thinking of you, wishing you warmth, and cheering for you every lap of the way.</p>
-           <p class="card-signoff">with hugs & healing ✨</p>`,
-    btn: "open again 🎁",
+           <p class="card-body handwriting final">You crossed the finish line of our hearts. Rest up, heal gently — your cat pit crew and your favourite humans are cheering every lap.</p>
+           <p class="card-signoff">purrfect recovery ahead ✨</p>`,
+    btn: "race again 🏎️",
+    toast: "🏁 YOU WIN! Get well soon!",
   },
 ];
 
@@ -51,16 +65,20 @@ const greetingCard = document.getElementById("greeting-card");
 const cardIllustration = document.getElementById("card-illustration");
 const cardContent = document.getElementById("card-content");
 const nextBtn = document.getElementById("next-btn");
+const boostBtn = document.getElementById("boost-btn");
 const nextLabel = document.getElementById("next-label");
 const stepNum = document.getElementById("step-num");
 const stepTotal = document.getElementById("step-total");
 const progressFill = document.getElementById("progress-fill");
+const raceCar = document.getElementById("race-car");
+const toast = document.getElementById("toast");
 const canvas = document.getElementById("confetti");
 const ctx = canvas.getContext("2d");
 
 let currentStep = 0;
 let confettiPieces = [];
 let animating = false;
+let boostCount = 0;
 
 stepTotal.textContent = STEPS.length;
 
@@ -72,12 +90,25 @@ function resizeCanvas() {
 resizeCanvas();
 window.addEventListener("resize", resizeCanvas);
 
-function vibrate() {
-  if (navigator.vibrate) navigator.vibrate(20);
+function vibrate(pattern = 20) {
+  if (navigator.vibrate) navigator.vibrate(pattern);
 }
 
-function createConfetti(count = 60) {
-  const colors = ["#ff6aab", "#ffb7d5", "#ffd6e8", "#e8d5ff", "#ffe566", "#fff"];
+function showToast(msg) {
+  toast.textContent = msg;
+  toast.classList.add("show");
+  setTimeout(() => toast.classList.remove("show"), 1800);
+}
+
+function cheerCats() {
+  document.querySelectorAll(".corner-cat").forEach((cat) => {
+    cat.classList.add("cheer");
+    setTimeout(() => cat.classList.remove("cheer"), 600);
+  });
+}
+
+function createConfetti(count = 70) {
+  const colors = ["#ff4d6d", "#ff6aab", "#ffb7d5", "#ffe566", "#fff", "#ff758f"];
   confettiPieces = Array.from({ length: count }, () => ({
     x: Math.random() * canvas.width,
     y: -Math.random() * canvas.height * 0.5,
@@ -124,6 +155,7 @@ function startConfetti(duration = 3000) {
 function updateProgress() {
   const pct = ((currentStep + 1) / STEPS.length) * 100;
   progressFill.style.width = `${pct}%`;
+  raceCar.style.left = `calc(${pct}% - 14px)`;
   stepNum.textContent = currentStep + 1;
 }
 
@@ -134,6 +166,8 @@ function showStep(index, animate = true) {
     greetingCard.classList.remove("flip-in");
     void greetingCard.offsetWidth;
     greetingCard.classList.add("flip-in");
+    cheerCats();
+    vibrate([15, 30, 15]);
   }
 
   cardIllustration.innerHTML = step.illustration;
@@ -141,17 +175,22 @@ function showStep(index, animate = true) {
   nextLabel.textContent = step.btn;
   updateProgress();
 
+  if (step.toast && animate) showToast(step.toast);
+
   if (index === STEPS.length - 1) {
     startConfetti();
     nextBtn.classList.add("final");
+    boostBtn.hidden = true;
   } else {
     nextBtn.classList.remove("final");
+    boostBtn.hidden = false;
   }
 }
 
 function openCard() {
   openEnvelope.classList.add("opening");
-  vibrate();
+  vibrate([30, 50, 30]);
+  showToast("🏎️ Engines on!");
 
   setTimeout(() => {
     envelopeScreen.classList.remove("active");
@@ -159,50 +198,78 @@ function openCard() {
     cardScreen.hidden = false;
     cardScreen.classList.add("active");
     currentStep = 0;
+    boostCount = 0;
     showStep(0, false);
     startConfetti(2000);
+    cheerCats();
   }, 700);
 }
 
 function nextStep() {
-  vibrate();
-
   if (currentStep < STEPS.length - 1) {
     currentStep++;
     showStep(currentStep);
     return;
   }
 
-  // Reset to envelope
   cardScreen.classList.remove("active");
   cardScreen.hidden = true;
   envelopeScreen.hidden = false;
   envelopeScreen.classList.add("active");
   openEnvelope.classList.remove("opening");
   currentStep = 0;
-  showStep(0, false);
+  boostCount = 0;
+  boostBtn.hidden = false;
+}
+
+function boost() {
+  boostCount++;
+  vibrate([10, 20, 10, 20]);
+  cheerCats();
+  startConfetti(800);
+
+  const msgs = [
+    "🐱 MEOW BOOST!",
+    "😺 Purr power +10!",
+    "🏎️ Cat turbo engaged!",
+    "🐾 Paw-sitive vibes!",
+    "✨ Nya nya heal!",
+  ];
+  showToast(msgs[boostCount % msgs.length]);
+
+  boostBtn.classList.add("pop");
+  setTimeout(() => boostBtn.classList.remove("pop"), 300);
 }
 
 openEnvelope.addEventListener("click", openCard);
 nextBtn.addEventListener("click", nextStep);
+boostBtn.addEventListener("click", boost);
 
-// Swipe support for mobile
+// Corner cat interactions
+document.querySelectorAll(".corner-cat").forEach((cat) => {
+  cat.addEventListener("click", () => {
+    const bubble = cat.querySelector(".cat-bubble");
+    bubble.textContent = cat.dataset.meow;
+    cat.classList.add("purr");
+    vibrate(15);
+    showToast(`🐱 ${cat.dataset.meow}`);
+
+    setTimeout(() => {
+      cat.classList.remove("purr");
+      bubble.textContent = "";
+    }, 1200);
+  });
+});
+
+// Swipe to advance
 let touchStartX = 0;
-greetingCard.addEventListener(
-  "touchstart",
-  (e) => {
-    touchStartX = e.touches[0].clientX;
-  },
-  { passive: true }
-);
+greetingCard.addEventListener("touchstart", (e) => {
+  touchStartX = e.touches[0].clientX;
+}, { passive: true });
 
-greetingCard.addEventListener(
-  "touchend",
-  (e) => {
-    const diff = touchStartX - e.changedTouches[0].clientX;
-    if (diff > 50) nextStep();
-  },
-  { passive: true }
-);
+greetingCard.addEventListener("touchend", (e) => {
+  const diff = touchStartX - e.changedTouches[0].clientX;
+  if (diff > 50) nextStep();
+}, { passive: true });
 
 showStep(0, false);

@@ -3,54 +3,104 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <meta name="theme-color" content="#ffb7d5" />
-  <meta name="description" content="A whimsical get well soon care package just for you 💕" />
-  <title>Get Well Soon 💕</title>
+  <meta name="theme-color" content="#ff4d6d" />
+  <meta name="description" content="A race & cat themed get well soon card 🏎️🐱" />
+  <title>Get Well Soon — Race & Cats 🏎️🐱</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;600;700&family=Caveat:wght@500;600;700&family=Quicksand:wght@400;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <div class="bg-sparkles" aria-hidden="true"></div>
+  <div class="race-bg" aria-hidden="true">
+    <div class="checkered-strip top"></div>
+    <div class="checkered-strip bottom"></div>
+  </div>
+
+  <!-- Corner cats — tap for reactions! -->
+  <div class="corner-cats" aria-hidden="true">
+    <button class="corner-cat tl" data-meow="mrow!" aria-label="Tap cat">
+      <svg viewBox="0 0 80 80" class="cat-svg"><use href="#cat-face"/></svg>
+      <span class="cat-bubble"></span>
+    </button>
+    <button class="corner-cat tr" data-meow="purr~" aria-label="Tap cat">
+      <svg viewBox="0 0 80 80" class="cat-svg orange"><use href="#cat-face"/></svg>
+      <span class="cat-bubble"></span>
+    </button>
+    <button class="corner-cat bl" data-meow="meow!" aria-label="Tap cat">
+      <svg viewBox="0 0 80 80" class="cat-svg gray"><use href="#cat-face"/></svg>
+      <span class="cat-bubble"></span>
+    </button>
+    <button class="corner-cat br" data-meow="nya!" aria-label="Tap cat">
+      <svg viewBox="0 0 80 80" class="cat-svg calico"><use href="#cat-face"/></svg>
+      <span class="cat-bubble"></span>
+    </button>
+  </div>
+
+  <svg style="display:none" aria-hidden="true">
+    <symbol id="cat-face" viewBox="0 0 80 80">
+      <ellipse cx="40" cy="48" rx="28" ry="24" class="cat-body"/>
+      <circle cx="40" cy="32" r="22" class="cat-head"/>
+      <polygon points="18,18 24,32 12,30" class="cat-ear left"/>
+      <polygon points="62,18 56,32 68,30" class="cat-ear right"/>
+      <circle cx="32" cy="30" r="3" class="cat-eye"/>
+      <circle cx="48" cy="30" r="3" class="cat-eye"/>
+      <ellipse cx="40" cy="36" rx="3" ry="2" class="cat-nose"/>
+      <path d="M40 38 Q34 42 30 40 M40 38 Q46 42 50 40" class="cat-mouth" fill="none" stroke-width="1.5"/>
+      <ellipse cx="22" cy="36" rx="6" ry="3" class="cat-blush"/>
+      <ellipse cx="58" cy="36" rx="6" ry="3" class="cat-blush"/>
+    </symbol>
+  </svg>
 
   <main id="app">
-    <!-- Level 0: sealed envelope -->
+    <!-- Pit lane: sealed envelope -->
     <section id="envelope-screen" class="screen active">
-      <p class="screen-label">incoming delivery...</p>
+      <p class="screen-label">🏁 pit lane delivery incoming</p>
       <button id="open-envelope" class="envelope" aria-label="Open envelope">
         <div class="envelope-flap"></div>
         <div class="envelope-body">
-          <span class="stamp">💌</span>
-          <p>For you</p>
+          <span class="stamp">🏎️</span>
+          <p>For you, racer!</p>
         </div>
         <div class="envelope-letter"></div>
       </button>
-      <p class="tap-prompt">tap the envelope to open</p>
+      <p class="tap-prompt">tap to start your recovery race →</p>
+      <div class="mini-track">
+        <span class="mini-car">🏎️</span>
+        <span class="mini-flag">🏁</span>
+      </div>
     </section>
 
-    <!-- The one greeting card -->
+    <!-- The greeting card quest -->
     <section id="card-screen" class="screen" hidden>
       <div class="game-hud">
-        <div class="level-badge">care package <span id="step-num">1</span>/<span id="step-total">6</span></div>
-        <div class="progress-track">
-          <div id="progress-fill" class="progress-fill"></div>
+        <div class="level-badge">lap <span id="step-num">1</span> / <span id="step-total">6</span> · pit crew cats cheering!</div>
+        <div class="race-progress">
+          <div class="progress-track">
+            <div id="progress-fill" class="progress-fill"></div>
+            <span id="race-car" class="race-car">🏎️</span>
+          </div>
+          <div class="track-labels"><span>START</span><span>🏁 FINISH</span></div>
         </div>
       </div>
 
       <article id="greeting-card" class="greeting-card">
         <div class="card-inner">
-          <div id="card-illustration" class="card-illustration" aria-hidden="true"></div>
+          <div id="card-illustration" class="card-illustration"></div>
           <div id="card-content" class="card-content"></div>
         </div>
       </article>
 
-      <button id="next-btn" class="next-btn">
-        <span id="next-label">unwrap next gift →</span>
-      </button>
+      <div class="action-row">
+        <button id="boost-btn" class="boost-btn" aria-label="Boost">🐱 boost!</button>
+        <button id="next-btn" class="next-btn">
+          <span id="next-label">next lap →</span>
+        </button>
+      </div>
     </section>
   </main>
 
+  <div id="toast" class="toast" aria-live="polite"></div>
   <canvas id="confetti" aria-hidden="true"></canvas>
   <script src="script.js"></script>
 </body>
