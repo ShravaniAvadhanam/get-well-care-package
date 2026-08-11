@@ -58,6 +58,9 @@ const STEPS = [
   },
 ];
 
+const CAT_EMOJIS = ["🐱", "😺", "😸", "😻", "🐈", "🐈‍⬛", "😽", "🙀"];
+const MEOWS = ["mrow!", "purr~", "meow!", "nya!", "mrrp!", "pspsps!", "healing vibes!", "🏎️ vroom!"];
+
 const envelopeScreen = document.getElementById("envelope-screen");
 const cardScreen = document.getElementById("card-screen");
 const openEnvelope = document.getElementById("open-envelope");
@@ -101,9 +104,82 @@ function showToast(msg) {
 }
 
 function cheerCats() {
-  document.querySelectorAll(".corner-cat").forEach((cat) => {
+  document.querySelectorAll(".corner-cat, .scatter-cat").forEach((cat) => {
     cat.classList.add("cheer");
     setTimeout(() => cat.classList.remove("cheer"), 600);
+  });
+}
+
+function tapCat(cat) {
+  const bubble = cat.querySelector(".cat-bubble");
+  const meow = cat.dataset.meow || MEOWS[Math.floor(Math.random() * MEOWS.length)];
+  if (bubble) bubble.textContent = meow;
+  cat.classList.add("purr");
+  vibrate(15);
+  showToast(`🐱 ${meow}`);
+
+  setTimeout(() => {
+    cat.classList.remove("purr");
+    if (bubble) bubble.textContent = "";
+  }, 1200);
+}
+
+function spawnCatParty() {
+  const party = document.getElementById("cat-party");
+  if (!party || party.dataset.ready) return;
+  party.dataset.ready = "1";
+
+  // Random scattered cats — avoid center card zone
+  const spots = [
+    { top: "18%", left: "22%" },
+    { top: "22%", left: "78%" },
+    { top: "38%", left: "8%" },
+    { top: "42%", left: "88%" },
+    { top: "58%", left: "14%" },
+    { top: "62%", left: "82%" },
+    { top: "78%", left: "28%" },
+    { top: "75%", left: "72%" },
+    { top: "32%", left: "50%" },
+    { top: "85%", left: "48%" },
+  ];
+
+  spots.forEach((spot, i) => {
+    const btn = document.createElement("button");
+    btn.className = "scatter-cat";
+    btn.style.top = spot.top;
+    btn.style.left = spot.left;
+    btn.style.setProperty("--rot", `${-15 + Math.random() * 30}deg`);
+    btn.style.setProperty("--dur", `${2.5 + Math.random() * 2}s`);
+    btn.style.setProperty("--delay", `${Math.random() * 2}s`);
+    btn.dataset.meow = MEOWS[i % MEOWS.length];
+    btn.setAttribute("aria-label", "Tap cat");
+
+    const emoji = document.createElement("span");
+    emoji.className = "cat-emoji";
+    emoji.textContent = CAT_EMOJIS[i % CAT_EMOJIS.length];
+    btn.appendChild(emoji);
+
+    const bubble = document.createElement("span");
+    bubble.className = "cat-bubble";
+    btn.appendChild(bubble);
+
+    btn.addEventListener("click", () => tapCat(btn));
+    party.appendChild(btn);
+  });
+
+  // Paw prints for fun
+  for (let i = 0; i < 12; i++) {
+    const paw = document.createElement("span");
+    paw.className = "paw-print";
+    paw.textContent = "🐾";
+    paw.style.top = `${5 + Math.random() * 90}%`;
+    paw.style.left = `${5 + Math.random() * 90}%`;
+    paw.style.setProperty("--rot", `${Math.random() * 360}deg`);
+    party.appendChild(paw);
+  }
+
+  document.querySelectorAll(".corner-cat").forEach((cat) => {
+    cat.addEventListener("click", () => tapCat(cat));
   });
 }
 
@@ -245,21 +321,7 @@ openEnvelope.addEventListener("click", openCard);
 nextBtn.addEventListener("click", nextStep);
 boostBtn.addEventListener("click", boost);
 
-// Corner cat interactions
-document.querySelectorAll(".corner-cat").forEach((cat) => {
-  cat.addEventListener("click", () => {
-    const bubble = cat.querySelector(".cat-bubble");
-    bubble.textContent = cat.dataset.meow;
-    cat.classList.add("purr");
-    vibrate(15);
-    showToast(`🐱 ${cat.dataset.meow}`);
-
-    setTimeout(() => {
-      cat.classList.remove("purr");
-      bubble.textContent = "";
-    }, 1200);
-  });
-});
+spawnCatParty();
 
 // Swipe to advance
 let touchStartX = 0;

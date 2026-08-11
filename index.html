@@ -17,40 +17,13 @@
     <div class="checkered-strip bottom"></div>
   </div>
 
-  <!-- Corner cats — tap for reactions! -->
-  <div class="corner-cats" aria-hidden="true">
-    <button class="corner-cat tl" data-meow="mrow!" aria-label="Tap cat">
-      <svg viewBox="0 0 80 80" class="cat-svg"><use href="#cat-face"/></svg>
-      <span class="cat-bubble"></span>
-    </button>
-    <button class="corner-cat tr" data-meow="purr~" aria-label="Tap cat">
-      <svg viewBox="0 0 80 80" class="cat-svg orange"><use href="#cat-face"/></svg>
-      <span class="cat-bubble"></span>
-    </button>
-    <button class="corner-cat bl" data-meow="meow!" aria-label="Tap cat">
-      <svg viewBox="0 0 80 80" class="cat-svg gray"><use href="#cat-face"/></svg>
-      <span class="cat-bubble"></span>
-    </button>
-    <button class="corner-cat br" data-meow="nya!" aria-label="Tap cat">
-      <svg viewBox="0 0 80 80" class="cat-svg calico"><use href="#cat-face"/></svg>
-      <span class="cat-bubble"></span>
-    </button>
+  <!-- Corner cats + scattered cats — tap any cat! -->
+  <div id="cat-party" class="cat-party" aria-hidden="true">
+    <button class="corner-cat tl" data-meow="mrow! 🏎️"><span class="cat-emoji">🐱</span><span class="cat-bubble"></span></button>
+    <button class="corner-cat tr" data-meow="purr~"><span class="cat-emoji">😺</span><span class="cat-bubble"></span></button>
+    <button class="corner-cat bl" data-meow="meow!"><span class="cat-emoji">😸</span><span class="cat-bubble"></span></button>
+    <button class="corner-cat br" data-meow="nya! 💕"><span class="cat-emoji">😻</span><span class="cat-bubble"></span></button>
   </div>
-
-  <svg style="display:none" aria-hidden="true">
-    <symbol id="cat-face" viewBox="0 0 80 80">
-      <ellipse cx="40" cy="48" rx="28" ry="24" class="cat-body"/>
-      <circle cx="40" cy="32" r="22" class="cat-head"/>
-      <polygon points="18,18 24,32 12,30" class="cat-ear left"/>
-      <polygon points="62,18 56,32 68,30" class="cat-ear right"/>
-      <circle cx="32" cy="30" r="3" class="cat-eye"/>
-      <circle cx="48" cy="30" r="3" class="cat-eye"/>
-      <ellipse cx="40" cy="36" rx="3" ry="2" class="cat-nose"/>
-      <path d="M40 38 Q34 42 30 40 M40 38 Q46 42 50 40" class="cat-mouth" fill="none" stroke-width="1.5"/>
-      <ellipse cx="22" cy="36" rx="6" ry="3" class="cat-blush"/>
-      <ellipse cx="58" cy="36" rx="6" ry="3" class="cat-blush"/>
-    </symbol>
-  </svg>
 
   <main id="app">
     <!-- Pit lane: sealed envelope -->
