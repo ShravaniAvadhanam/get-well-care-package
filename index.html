@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#ffb7d5" />
+  <meta name="description" content="A whimsical get well soon care package just for you 💕" />
+  <title>Get Well Soon Care Package 💕</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;600;700&family=Quicksand:wght@400;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="bg-sparkles" aria-hidden="true"></div>
+  <div class="floating-decor" aria-hidden="true">
+    <span class="decor d1">🌸</span>
+    <span class="decor d2">✨</span>
+    <span class="decor d3">🌷</span>
+    <span class="decor d4">💗</span>
+    <span class="decor d5">🌺</span>
+  </div>
+
+  <!-- STAGE 1: Sealed care package -->
+  <main id="app">
+    <section id="intro" class="stage active">
+      <p class="eyebrow">someone sent you something special...</p>
+      <h1 class="title">A Get Well Soon<br />Care Package 💌</h1>
+      <p class="subtitle">Tap the box to unwrap a little magic</p>
+
+      <button id="open-btn" class="package-btn" aria-label="Open your care package">
+        <div class="package">
+          <div class="package-lid">
+            <span class="ribbon">🎀</span>
+          </div>
+          <div class="package-body">
+            <span class="package-label">OPEN ME</span>
+            <div class="package-icons">
+              <span>🍲</span><span>🐱</span><span>🏎️</span><span>🎮</span>
+            </div>
+          </div>
+        </div>
+        <span class="tap-hint">tap to open ✨</span>
+      </button>
+    </section>
+
+    <!-- STAGE 2: Reveal scene -->
+    <section id="reveal" class="stage" hidden>
+      <header class="reveal-header">
+        <h2>Get Well Soon!</h2>
+        <p class="care-message">Sending you a get well soon care package — soup, flowers, honeybees, cats, and a little F1 + gaming magic to brighten your day 🩷</p>
+      </header>
+
+      <div class="scene">
+        <!-- Soup -->
+        <div class="card soup-card" data-delay="0">
+          <div class="soup-bowl">
+            <div class="steam s1"></div>
+            <div class="steam s2"></div>
+            <div class="steam s3"></div>
+            <div class="soup">
+              <span class="veggie v1">🥕</span>
+              <span class="veggie v2">🥦</span>
+              <span class="veggie v3">🧅</span>
+            </div>
+          </div>
+          <p class="card-text">Get Well <em>Souper</em> Soon! 🍲</p>
+        </div>
+
+        <!-- Flowers -->
+        <div class="card flower-card" data-delay="200">
+          <div class="bouquet">
+            <span class="flower f1">🌸</span>
+            <span class="flower f2">🌷</span>
+            <span class="flower f3">🌼</span>
+            <span class="flower f4">🌺</span>
+            <span class="flower f5">💐</span>
+          </div>
+          <p class="card-text">Blooming wishes for you 🌸</p>
+        </div>
+
+        <!-- Honeybee -->
+        <div class="card bee-card" data-delay="400">
+          <div class="bee-scene">
+            <span class="bee" id="bee">🐝</span>
+            <span class="bee-trail">✨ ✨ ✨</span>
+          </div>
+          <p class="card-text">Buzzing healing vibes your way!</p>
+        </div>
+
+        <!-- Cats -->
+        <div class="card cat-card" data-delay="600">
+          <div class="cats">
+            <span class="cat c1">🐱</span>
+            <span class="cat c2">😺</span>
+            <span class="cat c3">😸</span>
+          </div>
+          <p class="card-text">Purr-fect cuddles incoming 🐾</p>
+        </div>
+
+        <!-- F1 -->
+        <div class="card f1-card" data-delay="800">
+          <div class="race-track">
+            <span class="f1-car">🏎️</span>
+            <span class="pit-crew">🔧</span>
+            <span class="checkered">🏁</span>
+          </div>
+          <p class="card-text">Pit crew says: back on track soon! 🏎️</p>
+        </div>
+
+        <!-- Gaming -->
+        <div class="card game-card" data-delay="1000">
+          <div class="game-scene">
+            <span class="controller">🎮</span>
+            <span class="pixel-heart">💖</span>
+            <span class="star">⭐</span>
+          </div>
+          <p class="card-text">Level up your recovery! 🎮</p>
+        </div>
+      </div>
+
+      <div class="final-message">
+        <p>You're so loved. Rest up, heal gently, and know someone is cheering for you every lap of the way 💕</p>
+        <button id="replay-btn" class="replay-btn">Open again 🎁</button>
+      </div>
+    </section>
+  </main>
+
+  <canvas id="confetti" aria-hidden="true"></canvas>
+  <script src="script.js"></script>
+</body>
+</html>
