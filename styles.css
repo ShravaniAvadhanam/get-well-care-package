@@ -30,12 +30,20 @@ body {
   overflow-x: hidden;
 }
 
-/* Race background */
 .race-bg {
   position: fixed;
   inset: 0;
   pointer-events: none;
   z-index: 0;
+}
+
+.bg-gradient {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 15% 20%, rgba(255, 182, 193, 0.5) 0%, transparent 40%),
+    radial-gradient(circle at 85% 75%, rgba(255, 150, 180, 0.45) 0%, transparent 45%),
+    radial-gradient(circle at 50% 50%, rgba(255, 220, 230, 0.3) 0%, transparent 60%);
 }
 
 .checkered-strip {
@@ -50,19 +58,50 @@ body {
 .checkered-strip.top { top: 0; }
 .checkered-strip.bottom { bottom: 0; }
 
-/* Cat party — corners + scattered */
+/* Dense background emoji fill — always BEHIND card */
+.bg-fill {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  overflow: hidden;
+}
+
+.bg-emoji {
+  position: absolute;
+  transform: translate(-50%, -50%) rotate(var(--rot, 0deg));
+  font-size: var(--size, 1.4rem);
+  opacity: var(--opacity, 0.35);
+  animation: bg-float var(--dur, 4s) ease-in-out infinite;
+  animation-delay: var(--delay, 0s);
+  filter: blur(0);
+  user-select: none;
+}
+
+.bg-emoji.tiny { --size: 0.9rem; --opacity: 0.25; }
+.bg-emoji.small { --size: 1.2rem; --opacity: 0.3; }
+.bg-emoji.medium { --size: 1.6rem; --opacity: 0.38; }
+.bg-emoji.large { --size: 2rem; --opacity: 0.42; }
+
+@keyframes bg-float {
+  0%, 100% { transform: translate(-50%, -50%) rotate(var(--rot, 0deg)) scale(1); }
+  50% { transform: translate(-50%, calc(-50% - 8px)) rotate(calc(var(--rot, 0deg) + 6deg)) scale(1.08); }
+}
+
+/* Corner cats only — above card for tapping */
 .cat-party {
   position: fixed;
   inset: 0;
   pointer-events: none;
-  z-index: 50;
+  z-index: 20;
   overflow: hidden;
 }
 
-.corner-cat,
-.scatter-cat {
+.corner-cat {
   position: absolute;
-  background: rgba(255, 255, 255, 0.92);
+  width: 64px;
+  height: 64px;
+  background: rgba(255, 255, 255, 0.95);
   border: 2px solid white;
   border-radius: 50%;
   box-shadow: 0 4px 16px var(--shadow);
@@ -75,20 +114,7 @@ body {
   padding: 0;
 }
 
-.corner-cat {
-  width: 64px;
-  height: 64px;
-}
-
-.scatter-cat {
-  width: 48px;
-  height: 48px;
-  opacity: 0.88;
-  transform: translate(-50%, -50%) rotate(var(--rot, 0deg));
-}
-
-.corner-cat:active,
-.scatter-cat:active {
+.corner-cat:active {
   transform: scale(0.85) !important;
 }
 
@@ -107,16 +133,13 @@ body {
 .corner-cat.bl { bottom: 10px; left: 6px; animation: cat-idle 2.8s ease-in-out infinite 0.8s; }
 .corner-cat.br { bottom: 10px; right: 6px; animation: cat-idle 2.8s ease-in-out infinite 1.2s; }
 
-.corner-cat.cheer,
-.scatter-cat.cheer {
+.corner-cat.cheer {
   animation: cat-cheer 0.45s ease !important;
 }
 
-.corner-cat.purr,
-.scatter-cat.purr {
+.corner-cat.purr {
   transform: scale(1.2);
   box-shadow: 0 0 0 5px rgba(255, 106, 171, 0.45);
-  z-index: 60;
 }
 
 @keyframes cat-idle {
@@ -128,16 +151,6 @@ body {
   0%, 100% { transform: scale(1) rotate(0); }
   30% { transform: scale(1.25) rotate(-12deg); }
   70% { transform: scale(1.25) rotate(12deg); }
-}
-
-@keyframes cat-drift {
-  0%, 100% { transform: translate(-50%, -50%) rotate(var(--rot, 0deg)); }
-  50% { transform: translate(-50%, calc(-50% - 10px)) rotate(calc(var(--rot, 0deg) + 8deg)); }
-}
-
-.scatter-cat {
-  animation: cat-drift var(--dur, 3s) ease-in-out infinite;
-  animation-delay: var(--delay, 0s);
 }
 
 .cat-bubble {
@@ -159,17 +172,9 @@ body {
 
 .cat-bubble:empty { display: none; }
 
-.paw-print {
-  position: absolute;
-  font-size: 1rem;
-  opacity: 0.2;
-  pointer-events: none;
-  transform: rotate(var(--rot, 0deg));
-}
-
 #app {
   position: relative;
-  z-index: 2;
+  z-index: 10;
   max-width: 420px;
   margin: 0 auto;
   padding: 5rem 1rem 5rem;
@@ -177,6 +182,7 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: center;
+  isolation: isolate;
 }
 
 .screen {
@@ -319,6 +325,8 @@ body {
 .game-hud {
   width: 100%;
   margin-bottom: 0.75rem;
+  position: relative;
+  z-index: 2;
 }
 
 .level-badge {
@@ -384,6 +392,8 @@ body {
   width: 100%;
   perspective: 800px;
   margin-bottom: 0.85rem;
+  position: relative;
+  z-index: 2;
 }
 
 .greeting-card.flip-in .card-inner {
@@ -404,6 +414,8 @@ body {
   min-height: 340px;
   display: flex;
   flex-direction: column;
+  position: relative;
+  z-index: 2;
 }
 
 .card-illustration {
@@ -513,6 +525,8 @@ body {
   gap: 0.6rem;
   width: 100%;
   max-width: 340px;
+  position: relative;
+  z-index: 2;
 }
 
 .boost-btn {
@@ -593,8 +607,6 @@ body {
 @media (max-width: 360px) {
   .corner-cat { width: 54px; height: 54px; }
   .corner-cat .cat-emoji { font-size: 1.65rem; }
-  .scatter-cat { width: 40px; height: 40px; }
-  .scatter-cat .cat-emoji { font-size: 1.25rem; }
   .card-inner { min-height: 320px; }
   .card-body.handwriting { font-size: 1.2rem; }
 }

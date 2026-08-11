@@ -58,7 +58,14 @@ const STEPS = [
   },
 ];
 
-const CAT_EMOJIS = ["🐱", "😺", "😸", "😻", "🐈", "🐈‍⬛", "😽", "🙀"];
+const CAT_EMOJIS = ["🐱", "😺", "😸", "😻", "🐈", "🐈‍⬛", "😽"];
+const FLOWER_EMOJIS = ["🌸", "🌷", "🌼", "🌺", "💐", "🌻", "🪷", "🏵️"];
+const KISS_EMOJIS = ["💋", "💕", "💖", "💗", "💝", "😘", "🥰", "💞"];
+const SMILE_EMOJIS = ["😊", "🙂", "😄", "☺️", "🥳", "✨", "⭐", "🌟"];
+const EXTRA_EMOJIS = ["🐾", "🏎️", "🎀", "🍲", "🐝"];
+
+const BG_EMOJIS = [...CAT_EMOJIS, ...FLOWER_EMOJIS, ...KISS_EMOJIS, ...SMILE_EMOJIS, ...EXTRA_EMOJIS];
+const BG_SIZES = ["tiny", "small", "medium", "large"];
 const MEOWS = ["mrow!", "purr~", "meow!", "nya!", "mrrp!", "pspsps!", "healing vibes!", "🏎️ vroom!"];
 
 const envelopeScreen = document.getElementById("envelope-screen");
@@ -104,7 +111,7 @@ function showToast(msg) {
 }
 
 function cheerCats() {
-  document.querySelectorAll(".corner-cat, .scatter-cat").forEach((cat) => {
+  document.querySelectorAll(".corner-cat").forEach((cat) => {
     cat.classList.add("cheer");
     setTimeout(() => cat.classList.remove("cheer"), 600);
   });
@@ -124,60 +131,27 @@ function tapCat(cat) {
   }, 1200);
 }
 
-function spawnCatParty() {
-  const party = document.getElementById("cat-party");
-  if (!party || party.dataset.ready) return;
-  party.dataset.ready = "1";
+function spawnBgFill() {
+  const fill = document.getElementById("bg-fill");
+  if (!fill || fill.dataset.ready) return;
+  fill.dataset.ready = "1";
 
-  // Random scattered cats — avoid center card zone
-  const spots = [
-    { top: "18%", left: "22%" },
-    { top: "22%", left: "78%" },
-    { top: "38%", left: "8%" },
-    { top: "42%", left: "88%" },
-    { top: "58%", left: "14%" },
-    { top: "62%", left: "82%" },
-    { top: "78%", left: "28%" },
-    { top: "75%", left: "72%" },
-    { top: "32%", left: "50%" },
-    { top: "85%", left: "48%" },
-  ];
+  const count = 55;
 
-  spots.forEach((spot, i) => {
-    const btn = document.createElement("button");
-    btn.className = "scatter-cat";
-    btn.style.top = spot.top;
-    btn.style.left = spot.left;
-    btn.style.setProperty("--rot", `${-15 + Math.random() * 30}deg`);
-    btn.style.setProperty("--dur", `${2.5 + Math.random() * 2}s`);
-    btn.style.setProperty("--delay", `${Math.random() * 2}s`);
-    btn.dataset.meow = MEOWS[i % MEOWS.length];
-    btn.setAttribute("aria-label", "Tap cat");
-
-    const emoji = document.createElement("span");
-    emoji.className = "cat-emoji";
-    emoji.textContent = CAT_EMOJIS[i % CAT_EMOJIS.length];
-    btn.appendChild(emoji);
-
-    const bubble = document.createElement("span");
-    bubble.className = "cat-bubble";
-    btn.appendChild(bubble);
-
-    btn.addEventListener("click", () => tapCat(btn));
-    party.appendChild(btn);
-  });
-
-  // Paw prints for fun
-  for (let i = 0; i < 12; i++) {
-    const paw = document.createElement("span");
-    paw.className = "paw-print";
-    paw.textContent = "🐾";
-    paw.style.top = `${5 + Math.random() * 90}%`;
-    paw.style.left = `${5 + Math.random() * 90}%`;
-    paw.style.setProperty("--rot", `${Math.random() * 360}deg`);
-    party.appendChild(paw);
+  for (let i = 0; i < count; i++) {
+    const el = document.createElement("span");
+    el.className = `bg-emoji ${BG_SIZES[Math.floor(Math.random() * BG_SIZES.length)]}`;
+    el.textContent = BG_EMOJIS[Math.floor(Math.random() * BG_EMOJIS.length)];
+    el.style.top = `${2 + Math.random() * 96}%`;
+    el.style.left = `${2 + Math.random() * 96}%`;
+    el.style.setProperty("--rot", `${-25 + Math.random() * 50}deg`);
+    el.style.setProperty("--dur", `${3 + Math.random() * 4}s`);
+    el.style.setProperty("--delay", `${Math.random() * 3}s`);
+    fill.appendChild(el);
   }
+}
 
+function initCornerCats() {
   document.querySelectorAll(".corner-cat").forEach((cat) => {
     cat.addEventListener("click", () => tapCat(cat));
   });
@@ -321,7 +295,8 @@ openEnvelope.addEventListener("click", openCard);
 nextBtn.addEventListener("click", nextStep);
 boostBtn.addEventListener("click", boost);
 
-spawnCatParty();
+spawnBgFill();
+initCornerCats();
 
 // Swipe to advance
 let touchStartX = 0;
