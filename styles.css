@@ -131,8 +131,8 @@ body {
 }
 
 @keyframes cat-drift {
-  0%, 100% { transform: translateY(0) rotate(var(--rot, 0deg)); }
-  50% { transform: translateY(-10px) rotate(calc(var(--rot, 0deg) + 8deg)); }
+  0%, 100% { transform: translate(-50%, -50%) rotate(var(--rot, 0deg)); }
+  50% { transform: translate(-50%, calc(-50% - 10px)) rotate(calc(var(--rot, 0deg) + 8deg)); }
 }
 
 .scatter-cat {
